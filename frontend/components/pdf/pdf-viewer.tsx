@@ -15,8 +15,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 export function PdfViewer({ file }: { file: File }) {
   const { theme, setTheme } = useTheme();
-  const [canvasTheme, setCanvasTheme] = useState(() => theme === "dark" ? "#171717" : "#ffffff");
-  const [textColor, setTextColor] = useState(() => theme === "dark" ? "#ffffff" : "");
+  const [canvasTheme, setCanvasTheme] = useState(() => theme === "light" ? "#ffffff" : "#171717");
+  const [textColor, setTextColor] = useState(() => theme === "light" ? "" : "#ffffff");
   const [totalNumPages, setTotalNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [containerWidth, setContainerWidth] = useState<number>(1);
@@ -57,12 +57,12 @@ export function PdfViewer({ file }: { file: File }) {
   }, []);
 
   useEffect(() => {
-    if (theme === "dark") {
-      setCanvasTheme("#171717");
-      setTextColor("#ffffff");
+    if (theme === "light") {
+			setCanvasTheme("#ffffff");
+			setTextColor("");
     } else {
-      setCanvasTheme("#ffffff");
-      setTextColor("");
+			setCanvasTheme("#171717");
+			setTextColor("#ffffff");
     }
   }, [theme]);
 
