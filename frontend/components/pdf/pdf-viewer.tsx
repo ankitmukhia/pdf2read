@@ -15,8 +15,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 export function PdfViewer({ file }: { file: File }) {
   const { theme } = useTheme();
-  const [canvasTheme, setCanvasTheme] = useState("#ffffff");
-  const [textColor, setTextColor] = useState("#ffffff");
+  const [canvasTheme, setCanvasTheme] = useState(() => theme === "dark" ? "#171717" : "#ffffff");
+  const [textColor, setTextColor] = useState(() => theme === "dark" ? "#ffffff" : "");
   const [totalNumPages, setTotalNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [containerWidth, setContainerWidth] = useState<number>(1);
