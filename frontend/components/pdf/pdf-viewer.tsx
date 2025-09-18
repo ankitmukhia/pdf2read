@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronLeftCircleIcon, ChevronRightCircleIcon } from "lucide-react";
+import {
+  ChevronLeftCircleIcon,
+  ChevronRightCircleIcon,
+  MoonIcon,
+  SunIcon,
+} from "lucide-react";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
@@ -15,8 +20,12 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 export function PdfViewer({ file }: { file: File }) {
   const { theme, setTheme } = useTheme();
-  const [canvasTheme, setCanvasTheme] = useState(() => theme === "light" ? "#ffffff" : "#171717");
-  const [textColor, setTextColor] = useState(() => theme === "light" ? "" : "#ffffff");
+  const [canvasTheme, setCanvasTheme] = useState(() =>
+    theme === "dark" ? "#171717" : "#ffffff",
+  );
+  const [textColor, setTextColor] = useState(() =>
+    theme === "dark" ? "#ffffff" : "",
+  );
   const [totalNumPages, setTotalNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [containerWidth, setContainerWidth] = useState<number>(1);
@@ -57,12 +66,12 @@ export function PdfViewer({ file }: { file: File }) {
   }, []);
 
   useEffect(() => {
-    if (theme === "light") {
-			setCanvasTheme("#ffffff");
-			setTextColor("");
+    if (theme === "dark") {
+      setCanvasTheme("#171717");
+      setTextColor("#ffffff");
     } else {
-			setCanvasTheme("#171717");
-			setTextColor("#ffffff");
+      setCanvasTheme("#ffffff");
+      setTextColor("");
     }
   }, [theme]);
 
@@ -85,7 +94,6 @@ export function PdfViewer({ file }: { file: File }) {
 
   return (
     <div className="min-h-svh">
-      <button onClick={() => theme === "dark" ? setTheme("light") : setTheme("dark")}>Theme</button>
       <div className="flex h-screen flex-col items-center justify-center">
         <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
           <div className="border border-neutral-800">
@@ -98,7 +106,7 @@ export function PdfViewer({ file }: { file: File }) {
         </Document>
 
         <div className="absolute z-10 flex flex-col pb-4 justify-end h-screen space-y-2 text-center">
-          <div className="flex items-center gap-2 p-2 rounded-full bg-zinc-100/20 bg-clip-padding backdrop-filter backdrop-blur-sm">
+          <div className="flex items-center gap-2 p-2 rounded-full bg-zinc-500/30 dark:bg-zinc-300/30 bg-clip-padding backdrop-filter backdrop-blur-xs">
             <div className="flex items-center gap-4 px-4 py-2">
               <div className="flex gap-2">
                 <button
@@ -135,6 +143,16 @@ export function PdfViewer({ file }: { file: File }) {
                     }}
                   />
                 ))}
+              </div>
+
+              <div
+                className="flex items-center justify-center cursor-pointer rounded-full"
+                onClick={() =>
+                  theme === "dark" ? setTheme("light") : setTheme("dark")
+                }
+              >
+                <SunIcon className="size-7 scale-100 text-white rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+                <MoonIcon className="absolute size-7 scale-0 text-white rotate-90 transition-all dark:scale-100 dark:rotate-0" />
               </div>
             </div>
           </div>
