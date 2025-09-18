@@ -105,7 +105,7 @@ export function PdfViewer({ file }: { file: File }) {
           </div>
         </Document>
 
-        <div className="absolute z-10 flex flex-col pb-4 justify-end h-screen space-y-2 text-center">
+        <div className="fixed bottom-4 z-10 flex flex-col space-y-2 text-center">
           <div className="flex items-center gap-2 p-2 rounded-full bg-zinc-500/30 dark:bg-zinc-300/30 bg-clip-padding backdrop-filter backdrop-blur-xs">
             <div className="flex items-center gap-4 px-4 py-2">
               <div className="flex gap-2">
