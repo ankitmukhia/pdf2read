@@ -14,7 +14,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 export function PdfViewer({ file }: { file: File }) {
-  const { theme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [canvasTheme, setCanvasTheme] = useState(() => theme === "dark" ? "#171717" : "#ffffff");
   const [textColor, setTextColor] = useState(() => theme === "dark" ? "#ffffff" : "");
   const [totalNumPages, setTotalNumPages] = useState<number | null>(null);
@@ -72,7 +72,7 @@ export function PdfViewer({ file }: { file: File }) {
    * @lime #ecfcca
    * @green #dcfce7
    * @amber #fef3c6
-   * the reason we have empty text is because it causes a collision with default color.
+   * The reason we have empty text is because it causes a collision with default color.
    * */
 
   const themeVariants = [
@@ -85,7 +85,7 @@ export function PdfViewer({ file }: { file: File }) {
 
   return (
     <div className="min-h-svh">
-      {/* <button onClick={() => theme === "dark" ? setTheme("light") : setTheme("dark")}>Theme</button> */}
+      <button onClick={() => theme === "dark" ? setTheme("light") : setTheme("dark")}>Theme</button>
       <div className="flex h-screen flex-col items-center justify-center">
         <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
           <div className="border border-neutral-800">
