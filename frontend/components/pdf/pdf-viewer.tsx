@@ -57,8 +57,6 @@ export function PdfViewer({ file }: { file: File }) {
   }, []);
 
   useEffect(() => {
-    if (!theme) return;
-
     if (theme === "dark") {
       setCanvasTheme("#171717");
       setTextColor("#ffffff");
