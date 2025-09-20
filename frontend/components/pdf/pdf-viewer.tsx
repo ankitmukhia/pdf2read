@@ -8,6 +8,7 @@ import {
   SunIcon,
 } from "lucide-react";
 import { pdfjs, Document, Page } from "react-pdf";
+import { cn } from "@/lib/utils";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import { useTheme } from "next-themes";
@@ -95,7 +96,7 @@ export function PdfViewer({ file }: { file: File }) {
     <div className="min-h-svh">
       <div className="flex h-screen flex-col items-center justify-center">
         <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
-          <div className="border border-neutral-800">
+          <div className="border border-neutral-200 dark:border-neutral-800">
             <Page
               pageNumber={pageNumber}
               canvasBackground={canvasTheme}
@@ -106,7 +107,7 @@ export function PdfViewer({ file }: { file: File }) {
 
         <div className="fixed bottom-4 z-10 flex flex-col space-y-2 text-center">
           <div className="flex items-center gap-2 p-2 rounded-full bg-zinc-500/30 dark:bg-zinc-300/30 bg-clip-padding backdrop-filter backdrop-blur-xs">
-            <div className="flex items-center gap-4 px-4 py-2">
+            <div className="flex items-center gap-4 px-4 py-1.5">
               <div className="flex gap-2">
                 <button
                   type="button"
@@ -130,6 +131,8 @@ export function PdfViewer({ file }: { file: File }) {
                 </button>
               </div>
 
+              <Separator className="h-6" />
+
               <div className="flex gap-2">
                 {themeVariants.map((customTheme) => (
                   <div
@@ -143,6 +146,8 @@ export function PdfViewer({ file }: { file: File }) {
                   />
                 ))}
               </div>
+
+              <Separator className="h-6" />
 
               <div
                 className="flex items-center justify-center cursor-pointer rounded-full"
@@ -166,5 +171,16 @@ export function PdfViewer({ file }: { file: File }) {
         }
       `}</style>
     </div>
+  );
+}
+
+function Separator({ className }: { className: string }) {
+  return (
+    <div
+      className={cn(
+        `bg-zinc-200/70 dark:bg-neutral-400/20 shrink-0 h-full w-px`,
+        className,
+      )}
+    />
   );
 }
